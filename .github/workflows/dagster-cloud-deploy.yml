@@ -88,29 +88,29 @@ jobs:
         if: steps.prerun.outputs.result != 'skip'
         uses: aws-actions/amazon-ecr-login@v1
 
-      # Build the "quickstart_etl" location.
+      # Build the "my_project" location.
       # For each code location, the "build-push-action" builds the docker
       # image and a "set-build-output" command records the image tag for each code location.
       # To re-use the same docker image across multiple code locations, build the docker image once
       # and specify the same tag in multiple "set-build-output" commands. To use a different docker
       # image for each code location, use multiple "build-push-actions" with a location specific
       # tag.
-      - name: Build and upload Docker image for "quickstart_etl"
+      - name: Build and upload Docker image for "my_project"
         if: steps.prerun.outputs.result != 'skip'
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ${{ env.IMAGE_REGISTRY }}:${{ env.IMAGE_TAG }}-quickstart_etl
+          tags: ${{ env.IMAGE_REGISTRY }}:${{ env.IMAGE_TAG }}-my_project
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Update build session with image tag for quickstart_etl
+      - name: Update build session with image tag for my_project
         id: ci-set-build-output-example-location
         if: steps.prerun.outputs.result != 'skip'
         uses: dagster-io/dagster-cloud-action/actions/utils/dagster-cloud-cli@v1.11.9
         with:
-          command: "ci set-build-output --location-name=quickstart_etl --image-tag=$IMAGE_TAG-quickstart_etl"
+          command: "ci set-build-output --location-name=my_project --image-tag=$IMAGE_TAG-my_project"
 
       # Deploy all code locations in this build session to Dagster Cloud
       - name: Deploy to Dagster Cloud
