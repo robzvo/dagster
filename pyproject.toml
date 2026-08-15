@@ -4,13 +4,14 @@ requires-python = ">=3.10,<3.15"
 version = "0.1.0"
 dependencies = [
     "dagster==1.13.17",
+    "dagster-cloud",
 ]
 
 [dependency-groups]
 dev = [
     "dagster-dg-cli",
     "dagster-webserver",
-    "dagster-cloud",
+    
 ]
 
 [build-system]
