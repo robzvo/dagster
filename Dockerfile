@@ -1,25 +1,18 @@
-FROM python:3.12-slim
-# Add any steps to install project system dependencies like java
-
-# Install uv globally
+# copy lock file first, sync dependencies
+FROM python:3.13-slim AS builder
 RUN pip install uv
 
-WORKDIR /opt/dagster/app
-
-# Copy project specification files for caching
+WORKDIR /app
 COPY pyproject.toml uv.lock ./
-
-# Install dependencies into a virtual environment (.venv)
 RUN uv sync --frozen --no-dev --no-install-project
 
-COPY . /opt/dagster/app
-
-# Complete synchronization (including local code discovery)
+COPY . .
 RUN uv sync --frozen --no-dev
 
-# Add steps to install the Python dependencies for your Dagster project
-# into the default Python on PATH
-# For example, this project uses setup.py and we install all dependencies into the Docker container
-# using `pip`.
+# copy source, sync again
+FROM python:3.13-slim
 
-RUN pip install -e .
+COPY --from=builder /app /app
+ENV PATH="/app/.venv/bin:$PATH"
+
+WORKDIR /app
