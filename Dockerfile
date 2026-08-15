@@ -1,6 +1,6 @@
 # copy lock file first, sync dependencies
-FROM python:3.12-slim AS builder
-RUN pip install uv
+FROM python:3.12-slim-trixie
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
@@ -10,7 +10,7 @@ COPY . .
 RUN uv sync --frozen --no-dev
 
 # copy source, sync again
-FROM python:3.12-slim
+FROM python:3.12-slim-trixie
 
 COPY --from=builder /app /app
 ENV PATH="/app/.venv/bin:$PATH"
