@@ -12,6 +12,9 @@ RUN uv sync --frozen --no-dev
 # copy source, sync again
 FROM python:3.12-slim-trixie
 
+WORKDIR /app
+
+COPY --from=builder /app/.venv /app/.venv
 COPY --from=builder /app /app
 ENV PATH="/app/.venv/bin:$PATH"
 
