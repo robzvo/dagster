@@ -1,21 +1,17 @@
-# copy lock file first, sync dependencies
-FROM python:3.12-slim-trixie as builder
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+# Use Python 3.12 as the base image
+FROM python:3.12-slim
 
-WORKDIR /app
-COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --no-dev --no-install-project
+# Install uv & git
+RUN pip install uv
+RUN apt-get update && apt-get install -y git
 
-COPY . /app
-RUN uv sync --frozen --no-dev
-
-# copy source, sync again
-FROM python:3.12-slim-trixie
-
+# Sets up the working directory
 WORKDIR /app
 
-COPY --from=builder /app/.venv /app/.venv
-COPY --from=builder /app /app
+# Copy all project files into the image
+COPY . /app/
+
+# Create the virtual environment and install dependencies using uv
+RUN uv venv /app/.venv
 ENV PATH="/app/.venv/bin:$PATH"
-
-WORKDIR /app
+RUN uv pip install --system -e ".[dev]"
