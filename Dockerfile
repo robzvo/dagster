@@ -1,7 +1,16 @@
 FROM python:3.12-slim
 # Add any steps to install project system dependencies like java
 
+# Install uv globally
+RUN pip install uv
+
 WORKDIR /opt/dagster/app
+
+# Copy project specification files for caching
+COPY pyproject.toml uv.lock ./
+
+# Install dependencies into a virtual environment (.venv)
+RUN uv sync --frozen --no-dev --no-install-project
 
 COPY . /opt/dagster/app
 
