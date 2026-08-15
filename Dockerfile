@@ -14,6 +14,9 @@ RUN uv sync --frozen --no-dev --no-install-project
 
 COPY . /opt/dagster/app
 
+# Complete synchronization (including local code discovery)
+RUN uv sync --frozen --no-dev
+
 # Add steps to install the Python dependencies for your Dagster project
 # into the default Python on PATH
 # For example, this project uses setup.py and we install all dependencies into the Docker container
