@@ -1,5 +1,5 @@
 # copy lock file first, sync dependencies
-FROM python:3.13-slim AS builder
+FROM python:3.12-slim AS builder
 RUN pip install uv
 
 WORKDIR /app
@@ -10,7 +10,7 @@ COPY . .
 RUN uv sync --frozen --no-dev
 
 # copy source, sync again
-FROM python:3.13-slim
+FROM python:3.12-slim
 
 COPY --from=builder /app /app
 ENV PATH="/app/.venv/bin:$PATH"
