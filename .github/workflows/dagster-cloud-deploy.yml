@@ -19,7 +19,7 @@ env:
   # Path to the root folder containing the dagster project
   DAGSTER_PROJECT_DIR: "."
   # Path to dagster_cloud.yaml relative to DAGSTER_PROJECT_DIR
-  DAGSTER_CLOUD_YAML_PATH: "dagster_cloud.yaml"
+  DAGSTER_CLOUD_YAML_PATH: "build.yaml"
   # The IMAGE_REGISTRY should match the 'registry:'' in dagster_cloud.yaml
   IMAGE_REGISTRY: "942466511124.dkr.ecr.us-east-2.amazonaws.com/dagster-ecs/user_code"
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
