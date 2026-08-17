@@ -1,0 +1,10 @@
+locations:
+  - location_name: my_project
+    code_source:
+      package_name: my_project.definitions
+    container_context:
+      local_file: "container_context.yaml"
+    working_directory: ./src/
+    build:
+      directory: ./
+      registry: 942466511124.dkr.ecr.us-east-2.amazonaws.com/dagster-ecs/user_code
