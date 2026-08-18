@@ -48,17 +48,17 @@ jobs:
         with:
           command: "ci check --project-dir ${{ vars.DAGSTER_PROJECT_DIR }} --dagster-cloud-yaml-path ${{ vars.DAGSTER_CLOUD_YAML_PATH }}"
 
-      # # Parse dagster_cloud.yaml, detect if this is branch deployment and initialize the build session
-      # - name: Initialize build session
-      #   id: ci-init
-      #   if: steps.prerun.outputs.result != 'skip'
-      #   uses: dagster-io/dagster-cloud-action/actions/utils/ci-init@v1.11.9
-      #   with:
-      #     project_dir: ${{ vars.DAGSTER_PROJECT_DIR }}
-      #     dagster_cloud_yaml_path: ${{ vars.DAGSTER_CLOUD_YAML_PATH }}
-      #     # A full deployment name. If this run is for a pull request, this value will be used as
-      #     # the base deployment for the branch deployment.
-      #     deployment: 'prod'
+      # Parse dagster_cloud.yaml, detect if this is branch deployment and initialize the build session
+      - name: Initialize build session
+        id: ci-init
+        if: steps.prerun.outputs.result != 'skip'
+        uses: dagster-io/dagster-cloud-action/actions/utils/ci-init@v1.11.9
+        with:
+          project_dir: ${{ vars.DAGSTER_PROJECT_DIR }}
+          dagster_cloud_yaml_path: ${{ vars.DAGSTER_CLOUD_YAML_PATH }}
+          # A full deployment name. If this run is for a pull request, this value will be used as
+          # the base deployment for the branch deployment.
+          deployment: 'prod'
 
       # # Any value can be used as the docker image tag. It is recommended to use a unique value
       # # for each build so that multiple builds do not overwrite each other.
