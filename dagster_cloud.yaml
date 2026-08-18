@@ -6,3 +6,7 @@ locations:
     build:
       directory: ./
       registry: 942466511124.dkr.ecr.us-east-2.amazonaws.com/dagster-ecs/user_code
+    container_context:
+      ecs:
+        secrets_tags:
+          - "dagster"
