@@ -17,9 +17,9 @@ env:
   # The API token from https://dagster.cloud/ should be stored in Secrets
   DAGSTER_CLOUD_API_TOKEN: ${{ secrets.DAGSTER_CLOUD_API_TOKEN }}
   # Path to the root folder containing the dagster project
-  DAGSTER_PROJECT_DIR: "."
+  DAGSTER_PROJECT_DIR: ${{ vars.DAGSTER_PROJECT_DIR }}
   # Path to dagster_cloud.yaml relative to DAGSTER_PROJECT_DIR
-  DAGSTER_CLOUD_YAML_PATH: "build.yaml"
+  DAGSTER_CLOUD_YAML_PATH: ${{ vars.DAGSTER_CLOUD_YAML_PATH }}
   # The IMAGE_REGISTRY should match the 'registry:'' in dagster_cloud.yaml
   IMAGE_REGISTRY: ${{ vars.IMAGE_REGISTRY }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
