@@ -1,0 +1,3 @@
+ecs:
+  secrets_tags:
+    - 'dagster'
