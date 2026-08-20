@@ -5,6 +5,7 @@ version = "0.1.0"
 dependencies = [
     "dagster==1.13.17",
     "dagster-cloud",
+    "dagster-snowflake"
 ]
 
 [dependency-groups]
