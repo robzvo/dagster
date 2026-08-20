@@ -2,9 +2,9 @@ from pathlib import Path
 
 from dagster import Definitions
 
-from defs.assets import dg_assets
-from defs.jobs import dg_jobs
-from resources import dg_resources
+from my_project.defs.assets import dg_assets
+from my_project.defs.jobs import dg_jobs
+from my_project.resources import dg_resources
 
 
 # @definitions
