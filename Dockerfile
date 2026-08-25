@@ -8,6 +8,13 @@ RUN apt-get update && apt-get install -y git
 # Sets up the working directory
 WORKDIR /app
 
+# Copy the entrypoint script
+COPY entrypoint.sh /app/bin/entrypoint.sh
+RUN chmod +x /app/bin/entrypoint.sh
+
+# Set the Entrypoint
+ENTRYPOINT ["/app/bin/entrypoint.sh"]
+
 # Copy all project files into the image
 COPY . /app/
 
